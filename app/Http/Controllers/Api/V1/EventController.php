@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use App\Http\Resources\V1\EventResource;
+use App\Http\Resources\V1\EventCollection;
 
 class EventController extends Controller
 {
@@ -16,7 +18,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        return Event::all();
+        return new EventCollection(Event::paginate());
     }
 
     /**
@@ -48,7 +50,7 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return new EventResource($event);
     }
 
     /**
