@@ -1,5 +1,5 @@
-[validate your php api tests against openapi]([https://laravel.io/articles/validate-your-php-api-tests-against-openapi-definitions-a-laravel-example)       
-
+[validate your php api tests against openapi]([https://laravel.io/articles/validate-your-php-api-tests-against-openapi-definitions-a-laravel-example)          
+[@dragonmantank-Building APIS with Laravel using OpenApi](https://www.youtube.com/watch?v=xexLvQqAhiA&ab_channel=LaraconEU)    
 php artisan serve     
 
 

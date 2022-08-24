@@ -8,10 +8,10 @@ info:
     url: http://localhost:8000/api
 
 servers:
-  - url: http://localhost:8000/api
+  - url: http://localhost/api/V1
 
 paths:
-  '/V1/events':
+  '/events':
     get:
       responses:
         '200':
@@ -29,7 +29,7 @@ paths:
                       oneOf:
                         - $ref: '#/components/schemas/Event'
 
-  '/V1/test':
+  '/test':
     get:
       responses:
         '200':
