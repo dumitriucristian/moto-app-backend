@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 // use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\Event;
 use Tests\TestCase;
 use Osteel\OpenApi\Testing\ValidatorBuilder;
+
 
 class ExampleTest extends TestCase
 {
@@ -22,11 +24,20 @@ class ExampleTest extends TestCase
 
     public function testBasicTest()
     {
-        $response = $this->get('/api/test');
+        $response = $this->get('/api/V1/test');
 
         $validator = ValidatorBuilder::fromYaml(storage_path('api-docs/api-docs.yaml'))->getValidator();
 
-        $result = $validator->validate($response->baseResponse, '/test', 'get');
+        $result = $validator->validate($response->baseResponse, '/V1/test', 'get');
+        $this->assertTrue($result);
+    }
+
+    public function testEventCollection()
+    {
+        $response = $this->get('/api/V1/events');
+
+        $validator = ValidatorBuilder::fromYaml(storage_path('api-docs/api-docs.yaml'))->getValidator();
+        $result = $validator->validate($response->baseResponse, '/V1/events', 'get');
 
         $this->assertTrue($result);
     }

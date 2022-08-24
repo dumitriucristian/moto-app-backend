@@ -1,9 +1,6 @@
 [validate your php api tests against openapi]([https://laravel.io/articles/validate-your-php-api-tests-against-openapi-definitions-a-laravel-example)       
 
-project require xml-extension   
-```sudo apt-get install php-xml```  
-project require curl-extension  
-```sudo apt install php-curl```     
+php artisan serve     
 
 
 composer requirements for open api      
