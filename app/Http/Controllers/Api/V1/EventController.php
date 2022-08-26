@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Filters\EventFilter;
+use App\Filters\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\Http\Resources\V1\EventResource;
 use App\Http\Resources\V1\EventCollection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
 
 class EventController extends Controller
 {
@@ -16,9 +21,13 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new EventCollection(Event::paginate());
+
+        $filter = new EventFilter();
+        $query = $filter->setQuery($request);
+        return new EventCollection(Event::where($query)->paginate());
+
     }
 
     /**

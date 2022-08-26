@@ -28,7 +28,7 @@ class ExampleTest extends TestCase
 
         $validator = ValidatorBuilder::fromYaml(storage_path('api-docs/api-docs.yaml'))->getValidator();
 
-        $result = $validator->validate($response->baseResponse, '/V1/test', 'get');
+        $result = $validator->validate($response->baseResponse, 'test', 'get');
         $this->assertTrue($result);
     }
 
@@ -37,7 +37,7 @@ class ExampleTest extends TestCase
         $response = $this->get('/api/V1/events');
 
         $validator = ValidatorBuilder::fromYaml(storage_path('api-docs/api-docs.yaml'))->getValidator();
-        $result = $validator->validate($response->baseResponse, '/V1/events', 'get');
+        $result = $validator->validate($response->baseResponse, 'events', 'get');
 
         $this->assertTrue($result);
     }
