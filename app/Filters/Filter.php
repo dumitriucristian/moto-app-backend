@@ -18,13 +18,17 @@ class Filter
 
         foreach ($request->query as $key => $value) {
 
-            $operator = key($value);
 
-            if (!$this->isSafeParam($key, $value) &&  !$this->isSafeOperator($operator, $key)) {
+
+            if (!$this->isSafeParam($key, $value) ) {
                 continue;
             }
 
             foreach ($value as $operator => $data) {
+
+            if( !$this->isSafeOperator($operator, $key)){
+                continue;
+            }
 
                 $key = $this->mapFiltersToColumnName($key);
 
@@ -46,7 +50,7 @@ class Filter
 
     protected function isSafeParam($parameterName, $paramValue)
     {
-       return  array_key_exists($parameterName, $this->safeParams) || !is_array($paramValue);
+       return  array_key_exists($parameterName, $this->safeParams) && is_array($paramValue);
     }
 
     protected function mapFiltersToColumnName($filterName)

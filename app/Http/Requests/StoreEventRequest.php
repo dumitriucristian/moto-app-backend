@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreEventRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class StoreEventRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,26 @@ class StoreEventRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules():array
     {
         return [
-            //
+            "title" => ["string", "required"],
+            "status" => ["required", Rule::in( ["published","private","public"] ) ],
+            'startDate' => ["required"],
+            'endDate' => ["required"]
         ];
     }
+
+    /** @todo extra validation rules required */
+    protected function prepareForValidation()
+    {
+      return   $this->merge([
+          'user_id' => $this->userId,
+          'start_date' => $this->startDate,
+          'end_date' => $this->endDate
+          ]
+
+        );
+    }
+
 }

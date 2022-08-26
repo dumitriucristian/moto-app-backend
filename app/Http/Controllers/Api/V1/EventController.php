@@ -26,7 +26,8 @@ class EventController extends Controller
 
         $filter = new EventFilter();
         $query = $filter->setQuery($request);
-        return new EventCollection(Event::where($query)->paginate());
+        $data = Event::where($query)->paginate();
+        return new EventCollection($data->appends($request->query()));
 
     }
 
@@ -48,7 +49,9 @@ class EventController extends Controller
      */
     public function store(StoreEventRequest $request)
     {
-        //
+
+
+        return new EventResource(Event::create($request->all()));
     }
 
     /**
