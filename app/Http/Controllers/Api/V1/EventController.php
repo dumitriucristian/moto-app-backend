@@ -18,10 +18,8 @@ class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request) : EventCollection
     {
 
         $filter = new EventFilter();
@@ -43,11 +41,8 @@ class EventController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEventRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEventRequest $request)
+    */
+    public function store(StoreEventRequest $request) :EventResource
     {
 
 
@@ -57,10 +52,8 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Event $event): EventResource
     {
         return new EventResource($event);
     }
@@ -71,11 +64,11 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    /*public function edit(Event $event)
     {
         //
     }
-
+*/
     /**
      * Update the specified resource in storage.
      *
@@ -85,7 +78,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+
+        return $event->update($request->all());
     }
 
     /**
