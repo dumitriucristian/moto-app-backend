@@ -23,7 +23,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::group(['prefix'=> 'V1', 'namespace' => 'App\Http\Controllers\Api\V1'],function(){
-    Route::apiResource('events',EventController::class);
+    Route::apiResource('/events',EventController::class);
     /*Route::get('events',function(Request $request) {
         return response()->json(['data'=> [
             [

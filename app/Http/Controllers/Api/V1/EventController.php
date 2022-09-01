@@ -2,23 +2,31 @@
 
 namespace App\Http\Controllers\Api\V1;
 
+use App\Filters\EventFilter;
+use App\Filters\Filter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\Http\Resources\V1\EventResource;
 use App\Http\Resources\V1\EventCollection;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+
 
 class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request) : EventCollection
     {
-        return new EventCollection(Event::paginate());
+
+        $filter = new EventFilter();
+        $query = $filter->setQuery($request);
+        $data = Event::where($query)->paginate();
+        return new EventCollection($data->appends($request->query()));
+
     }
 
     /**
@@ -33,22 +41,19 @@ class EventController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEventRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEventRequest $request)
+    */
+    public function store(StoreEventRequest $request) :EventResource
     {
-        //
+
+
+        return new EventResource(Event::create($request->all()));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Event  $event
-     * @return \Illuminate\Http\Response
      */
-    public function show(Event $event)
+    public function show(Event $event): EventResource
     {
         return new EventResource($event);
     }
@@ -59,11 +64,11 @@ class EventController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    /*public function edit(Event $event)
     {
         //
     }
-
+*/
     /**
      * Update the specified resource in storage.
      *
@@ -73,7 +78,8 @@ class EventController extends Controller
      */
     public function update(UpdateEventRequest $request, Event $event)
     {
-        //
+
+        return $event->update($request->all());
     }
 
     /**
