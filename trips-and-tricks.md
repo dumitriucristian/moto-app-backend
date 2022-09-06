@@ -9,4 +9,5 @@ check swagger documentation on WSL http://localhost:8000/api/documentation
 seed the testing database   
 ```php artisan migrate:fresh --seed --env=testing```    
 
+set xdebug with phpstorm and docker https://www.youtube.com/watch?v=79x9wGUHgKY&ab_channel=Dr.AdamNielsen   
 
